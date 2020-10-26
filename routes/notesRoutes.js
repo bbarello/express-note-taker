@@ -5,24 +5,7 @@
 
 var fs = require('fs');
 var path = require("path");
-
-// writes to db.json
-fs.writeFile("../db/db.json", process.argv[2], function(err) {
-
-    if (err) {
-      return console.log(err);
-    }
-  
-    console.log("Success!");
-  
-
-// read db.json file
-fs.readFile("../db/db.json", "utf8", function(err, data) {
-    if (err) {
-      throw err;
-    }
-
-
+var db = require("../db/db.json");
 
 // ===============================================================================
 // ROUTING
@@ -30,29 +13,42 @@ fs.readFile("../db/db.json", "utf8", function(err, data) {
 
 module.exports = function(app) {
   // HTML GET Requests
-  app.get("/notes", function(req, res) {
+  app.get("/api/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/notes.html"));
   });
   
 
-
   // HTML POST request to post notes
   app.post("/api/notes", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    }
-    else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
+    
+  // var new note
+  var note ={
+      title: req.body.title,
+      text: req.body.text
+  };
   });
 
   // DELETE note request
   app.delete("/api/notes/:id", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/notes.html"));
+
+  // id variable
+  var id = parseInt(req.params.id);
+  
+  // reads file
+  
+
+  // variable all notes in json format
+
+  // new notes filter
+
+  // writes file
+
   });
+  
+
+
+
 
   // If no matching route is found default to home
   app.get("*", function(req, res) {
