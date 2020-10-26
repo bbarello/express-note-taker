@@ -20,9 +20,9 @@ track of tasks they need to complete.
 - HTML
 - CSS
 - Boostrap 4
-- Responsive Design(RWD)
 - Javascript
-- Hueroku
+- Node.js
+- Heroku
 - Express
 
 ```
