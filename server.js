@@ -3,6 +3,8 @@
 // Series of npm packages that we will use to give our server useful functionality
 // ==============================================================================
 var express = require("express");
+var fs = require("fs");
+var path = require("path");
 
 // ==============================================================================
 // EXPRESS CONFIGURATION
@@ -25,8 +27,13 @@ app.use(express.json());
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
-require("./routes/notesRoutes")(app);
+var apiRoutes = require("/routes/htmlRoutes")(app);
+var notesRoutes = require("/routes/notesRoutes")(app);
 
+console.log(apiRoutes);
+console.log(notesRoutes);
+apiRoutes(app);
+notesRoutes(app);
 // var apiRoutes = require("./routes/apiRoutes")
 // console.log(apiRoutes); //=> [Function]
 // apiRoutes(app);

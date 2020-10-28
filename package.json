@@ -1,26 +1,18 @@
 {
-  "name": "express-note-taker",
+  "name": "1-Passport-Example",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bbarello/express-note-taker.git"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bryan Barello",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bbarello/express-note-taker/issues"
-  },
-  "homepage": "https://github.com/bbarello/express-note-taker#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "node": "^14.13.1"
-  },
-  "devDependencies": {}
+    "express": "^4.17.0",
+    "uuid": "^8.3.1"
+  }
 }
