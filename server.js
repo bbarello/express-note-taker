@@ -2,7 +2,6 @@
 // DEPENDENCIES
 // Series of npm packages that we will use to give our server useful functionality
 // ==============================================================================
-const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require("constants");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
