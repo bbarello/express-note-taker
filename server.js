@@ -2,9 +2,10 @@
 // DEPENDENCIES
 // Series of npm packages that we will use to give our server useful functionality
 // ==============================================================================
-var express = require("express");
-var fs = require("fs");
-var path = require("path");
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require("constants");
+const express = require("express");
+const fs = require("fs");
+const path = require("path");
 
 // ==============================================================================
 // EXPRESS CONFIGURATION
@@ -27,13 +28,59 @@ app.use(express.json());
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
-var apiRoutes = require("/routes/htmlRoutes")(app);
-var notesRoutes = require("/routes/notesRoutes")(app);
+// returns index.html file 
+app.get('*', (req,res) => {
+  res.sendFile(path.join(__dirname,"/publickindex.html"));
+})
+
+// post request to post new notes
+app.post('/api/notes', function(req,res) {
+  let postNote = req.body;
+
+  // reads db.json file
+  fs.readFile('db.json', (err, data) => {
+    let jsonData = JSON.parse(data);
+    postNote.id = jsonData.length;
+     // pushes notes via json
+    jsonData.push(postNote);
+    
+    // write json to db.json file
+    fs.writeFile('db.json', JSON,stringify(jsonData), (err, data) => {
+      if (err) throw error;
+      // redirect to notes.html file
+      res.redirect('/api/notes');
+    })
+  });
+})
+
+// delete notes by id cascade
+app.delete('/api/notes/:id', (req,res) => {
+  // id in url
+  let Id = req.params.id
+  fs.readFile('db.json', (err, data) => {
+    let jsonData = JSON.parse(data);
+    // allows to filter json data
+    let filteredData = jsonData.filter(notes => {
+      return note.id ! == parseInt(Id);
+    })
+    // updates id in notes
+    let i = 0;
+    let updatedId = filteredData.map(note => {
+      note.id += i;
+      return note;
+    })
+    // writes to db.json file
+    fs.writeFile('db.json', JSON.stringify(updatedId), (err, data) => {
+      if(err) throw err;
+      res.send('deleted');
+    })
+  })
+})
 
 console.log(apiRoutes);
 console.log(notesRoutes);
-apiRoutes(app);
-notesRoutes(app);
+// apiRoutes(app);
+// notesRoutes(app);
 // var apiRoutes = require("./routes/apiRoutes")
 // console.log(apiRoutes); //=> [Function]
 // apiRoutes(app);
